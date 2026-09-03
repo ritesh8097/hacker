@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Security Scanner</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #000;
+    color: #00ff33;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+}
+
+.container {
+    min-height: 100vh;
+    padding: 18px;
+    border: 2px solid #ff0000;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    color: #ff2222;
+    border-bottom: 2px solid #ff2222;
+    padding-bottom: 10px;
+}
+
+.title {
+    text-align: center;
+    color: red;
+    font-size: 55px;
+    font-weight: bold;
+    margin: 25px 0 0;
+    text-shadow: 0 0 15px red;
+}
+
+.subtitle {
+    text-align: center;
+    color: white;
+    font-size: 25px;
+    margin: 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.box {
+    border: 1px solid red;
+    padding: 18px;
+    min-height: 230px;
+}
+
+.box h2 {
+    color: red;
+    text-align: center;
+}
+
+.info p,
+.threat p {
+    margin: 12px 0;
+}
+
+.center {
+    text-align: center;
+}
+
+.percent {
+    font-size: 80px;
+    color: #00ff33;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+    height: 25px;
+    border: 2px solid #00ff33;
+    margin: 10px 0 20px;
+}
+
+.bar {
+    width: 0%;
+    height: 100%;
+    background: #00ff33;
+    transition: width .15s;
+}
+
+.logs {
+    border: 1px solid red;
+    height: 190px;
+    padding: 15px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.warning {
+    text-align: center;
+    color: red;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+button {
+    background: black;
+    color: #00ff33;
+    border: 2px solid #00ff33;
+    padding: 12px 30px;
+    font-family: monospace;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00ff33;
+    color: black;
+}
+
+#prank {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 9999;
+    text-align: center;
+    padding-top: 25vh;
+}
+
+#prank h1 {
+    color: #00ff33;
+    font-size: 80px;
+}
+
+#prank p {
+    color: white;
+    font-size: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <span>SECURE SYSTEM</span>
+        <span>IP: 192.168.1.1</span>
+        <span>STATUS: SCANNING</span>
+    </div>
+
+    <h1 class="title">⚠ SYSTEM HACKED! ⚠</h1>
+    <div class="subtitle">YOUR SYSTEM IS BEING SCANNED</div>
+
+    <div class="grid">
+
+        <div class="box info">
+            <h2>SYSTEM INFO</h2>
+            <p>> USER: UNKNOWN</p>
+            <p>> OS: WINDOWS</p>
+            <p>> SECURITY: CHECKING</p>
+            <p>> NETWORK: CONNECTED</p>
+            <p>> STATUS: <span style="color:red">WARNING</span></p>
+        </div>
+
+        <div class="box center">
+            <h2>SCANNING YOUR SYSTEM</h2>
+
+            <div class="percent" id="percent">0%</div>
+
+            <div class="progress">
+                <div class="bar" id="bar"></div>
+            </div>
+
+            <div id="current">
+                Initializing scanner...
+            </div>
+
+            <br>
+
+            <div class="logs" id="logs">
+                > Starting security scan...<br>
+            </div>
+        </div>
+
+        <div class="box threat">
+            <h2>THREAT DETECTED</h2>
+            <p>> Trojan ........ [CHECKING]</p>
+            <p>> Spyware ...... [CHECKING]</p>
+            <p>> Malware ...... [CHECKING]</p>
+            <p>> Ransomware ... [CHECKING]</p>
+            <p>> Keylogger .... [CHECKING]</p>
+        </div>
+
+    </div>
+
+    <div class="warning">
+        ⚠ DO NOT CLOSE THIS WINDOW ⚠
+    </div>
+
+</div>
+
+<div id="prank">
+    <h1>😂 PRANK! 😂</h1>
+    <p>Relax bro! Nothing happened to your computer.</p>
+    <button onclick="location.reload()">Run Again</button>
+</div>
+
+
+<script>
+
+let progress = 0;
+
+const messages = [
+    "Initializing security scanner...",
+    "Checking system files...",
+    "Scanning network...",
+    "Checking installed applications...",
+    "Analyzing system processes...",
+    "Searching for suspicious activity...",
+    "Checking security settings...",
+    "Scanning temporary files...",
+    "Running deep system scan...",
+    "Finalizing security report..."
+];
+
+const percent = document.getElementById("percent");
+const bar = document.getElementById("bar");
+const current = document.getElementById("current");
+const logs = document.getElementById("logs");
+
+const scan = setInterval(() => {
+
+    progress++;
+
+    percent.innerText = progress + "%";
+    bar.style.width = progress + "%";
+
+    let index = Math.floor(progress / 10);
+
+    if (messages[index]) {
+        current.innerText = messages[index];
+
+        logs.innerHTML +=
+            "> " + messages[index] + "<br>";
+
+        logs.scrollTop = logs.scrollHeight;
+    }
+
+    if (progress >= 100) {
+
+        clearInterval(scan);
+
+        current.innerText = "SCAN COMPLETE!";
+
+        logs.innerHTML +=
+            "<br>> Scan finished.<br>" +
+            "> No real changes were made.<br>" +
+            "> Preparing prank reveal...<br>";
+
+        setTimeout(() => {
+            document.getElementById("prank").style.display = "block";
+        }, 2000);
+    }
+
+}, 100);
+
+
+</script>
+
+</body>
+</html>
